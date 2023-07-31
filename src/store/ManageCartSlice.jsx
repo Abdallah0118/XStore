@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { items: [], totalQuantity: 0, totalPrice: 0 };
+const initialState = {
+  items: [],
+  totalQuantity: 0,
+  totalPrice: 0,
+  quantity: 0,
+};
 
 const ManageCartSlice = createSlice({
   name: "cart",
@@ -10,35 +15,41 @@ const ManageCartSlice = createSlice({
       const newItem = action.payload;
       const existingItem = state.items.find((item) => item.id === newItem.id);
       state.totalQuantity++;
+      state.changed = true;
       if (!existingItem) {
         state.items.push({
           id: newItem.id,
-          quantity: 1,
           price: newItem.price,
+          quantity: 1,
           totalPrice: newItem.price,
-          name: newItem.name,
+          title: newItem.title,
+          description: newItem.description,
+          thumbnail: newItem.thumbnail,
         });
       } else {
         existingItem.quantity++;
         existingItem.totalPrice = existingItem.totalPrice + newItem.price;
       }
     },
-    decreaseItems(state, action) {
+    decreaseItemsInCart(state, action) {
       const id = action.payload;
-      state.totalQuantity--;
       const existingItem = state.items.find((item) => item.id === id);
+      state.totalQuantity--;
+      state.changed = true;
       if (existingItem.quantity === 1) {
-        state.items.filter((item) => item.id !== id);
+        state.items = state.items.filter((item) => item.id !== id);
       } else {
         existingItem.quantity--;
         existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
       }
     },
-    removeItemFromCart(state, action) {
+    removeItem(state, action) {
       const id = action.payload;
-      state.totalQuantity = 0;
-      state.items.filter((item) => item.id !== id);
+      const existingItem = state.items.find((item) => item.id === id);
+      state.items = state.items.filter((item) => item.id !== id);
+      state.totalQuantity = state.totalQuantity - existingItem.quantity;
     },
+    
   },
 });
 
