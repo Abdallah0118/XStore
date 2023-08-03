@@ -10,6 +10,8 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import DropDownMenu from "./DropDownMenu";
 import "./css/Navbar.css";
+import { getTotalCartQuantity } from "../store/CartSlice";
+
 const NavBar = () => {
   const [open, setOpen] = useState(false);
 
@@ -20,7 +22,7 @@ const NavBar = () => {
   };
 
   // cart quantity
-  const cartQuantity = useSelector((state) => state.cart.totalQuantity);
+  const totalCartQuantity = useSelector(getTotalCartQuantity);
 
   return (
     <div className="bg-white">
@@ -195,7 +197,7 @@ const NavBar = () => {
                       aria-hidden="true"
                     />
                     <span className=" absolute left-7 bottom-6 text-white h-5 w-5 rounded-full text-sm font-medium bg-red-600 text-center">
-                      {cartQuantity}
+                      {totalCartQuantity}
                     </span>
                   </button>
                 </div>

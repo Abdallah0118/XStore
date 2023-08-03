@@ -1,6 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { cartActions } from "../store/ManageCartSlice";
+import {
+  addItem,
+  decreaseItemQuantity,
+  getCurrentQuantityById,
+  increaseItemQuantity,
+} from "../store/CartSlice";
 
 const ProductItem = ({
   id,
@@ -13,25 +18,30 @@ const ProductItem = ({
   images,
 }) => {
   // cart quantity
-  const quantity = useSelector((state) => state.cart.items[id]?.quantity || 0);
-  console.log(quantity);
-
+  const quantity = useSelector(getCurrentQuantityById(id));
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
-    dispatch(
-      cartActions.addItemToCart({
-        id,
-        price,
-        title,
-        description,
-        thumbnail,
-      })
-    );
+    const newItem = {
+      id,
+      unitPrice: price,
+      title,
+      description,
+      brand,
+      category,
+      thumbnail,
+      images,
+      quantity: 1,
+      totalPrice: price * 1,
+    };
+    dispatch(addItem(newItem));
   };
 
+  const increaseHandler = () => {
+    dispatch(increaseItemQuantity(id));
+  };
   const decreaseHandler = () => {
-    dispatch(cartActions.decreaseItemsInCart(id));
+    dispatch(decreaseItemQuantity(id));
   };
 
   return (
@@ -62,7 +72,7 @@ const ProductItem = ({
       ) : (
         <div className="flex items-center justify-center my-2">
           <button
-            onClick={addToCartHandler}
+            onClick={increaseHandler}
             className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-5/12  py-2 text-white"
           >
             +

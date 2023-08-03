@@ -1,11 +1,8 @@
 import { useLoaderData } from "react-router-dom";
 import ProductItem from "./ProductItem";
-import { useSelector } from "react-redux";
 
 const ProductLists = () => {
   const products = useLoaderData();
-
-  const forQuantity = useSelector((state) => state.cart.items);
 
   return (
     <div className=" bg-white ">
@@ -17,11 +14,6 @@ const ProductLists = () => {
           {products.map((product) => (
             <div key={product.id}>
               <ProductItem {...product} />
-            </div>
-          ))}
-          {forQuantity.map((qty) => (
-            <div key={qty.id}>
-              <ProductItem {...qty} />
             </div>
           ))}
         </div>

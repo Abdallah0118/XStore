@@ -5,10 +5,13 @@ import { useSelector } from "react-redux";
 import { toggleCartActions } from "../store/ToggleCartSlice";
 import { useDispatch } from "react-redux";
 import CartItem from "./CartItem";
+import { getTotalCartPrice } from "../store/CartSlice";
+import { formatCurrency } from "../utils/Helper";
 
 export default function Cart() {
   const show = useSelector((state) => state.toggleCart.cartIsVisible);
-  const products = useSelector((state) => state.cart.items);
+  const TotalCartPrice = useSelector(getTotalCartPrice);
+  const products = useSelector((state) => state.cart.cart);
 
   const dispatch = useDispatch();
   const close = () => {
@@ -64,11 +67,12 @@ export default function Cart() {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul className="-my-6 divide-y divide-gray-200">
-                            {products.map((product) => (
-                              <li key={product.id} className="flex py-6">
-                                <CartItem {...product} />
-                              </li>
-                            ))}
+                            {products &&
+                              products.map((product) => (
+                                <li key={product.id} className="flex py-6">
+                                  <CartItem {...product} />
+                                </li>
+                              ))}
                           </ul>
                         </div>
                       </div>
@@ -77,7 +81,7 @@ export default function Cart() {
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$262.00</p>
+                        <p>{formatCurrency(TotalCartPrice)}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Shipping and taxes calculated at checkout.

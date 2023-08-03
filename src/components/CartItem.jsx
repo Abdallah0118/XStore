@@ -1,13 +1,13 @@
-import { useDispatch } from "react-redux";
-import { cartActions } from "../store/ManageCartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { formatCurrency } from "../utils/Helper";
+import { deleteItem, getCart } from "../store/CartSlice";
 
-const CartItem = ({ id, thumbnail, title, quantity, price }) => {
+const CartItem = ({ id, thumbnail, title, quantity, unitPrice, brand }) => {
   const dispatch = useDispatch();
 
   const removeHandler = () => {
-    dispatch(cartActions.removeItem(id));
+    dispatch(deleteItem(id));
   };
-
 
   return (
     <>
@@ -27,8 +27,9 @@ const CartItem = ({ id, thumbnail, title, quantity, price }) => {
                 <h5 className=" text-sm">{title}</h5>
               </a>
             </h3>
-            <p className="ml-4">{price}</p>
+            <p className="ml-4">{formatCurrency(unitPrice)}</p>
           </div>
+          <p class="mt-1 text-sm text-gray-500">{brand}</p>
         </div>
         <div className="flex flex-1 items-end justify-between text-sm">
           <p className="text-gray-500">Qty {quantity}</p>
@@ -37,7 +38,7 @@ const CartItem = ({ id, thumbnail, title, quantity, price }) => {
             <button
               onClick={removeHandler}
               type="button"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-red-600 hover:text-red-500"
             >
               Remove
             </button>
