@@ -1,8 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
 import ErrorPage from "./pages/ErrorPage";
-import Home from "./pages/Home";
+import Home, { loader as fetchedProducts } from "./pages/Home";
 import About from "./pages/About";
+import ProductPage, { loader as productById } from "./pages/ProductPage";
 
 const router = createBrowserRouter([
   {
@@ -13,18 +14,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: async () => {
-          const response = await fetch("https://dummyjson.com/products");
-          if (!response.ok) {
-            console.log("data error");
-          } else {
-            const data = await response.json();
-            console.log(data);
-            return data.products;
-          }
-        },
+        loader: fetchedProducts,
       },
       { path: "/about", element: <About /> },
+      {
+        path: "/products/:id",
+        element: <ProductPage />,
+        loader: productById,
+      },
     ],
   },
 ]);

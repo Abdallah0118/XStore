@@ -187,7 +187,7 @@ const NavBar = () => {
                 </div>
 
                 {/* Cart */}
-                <div className=" flow-root lg:ml-6">
+                <div className=" relative flow-root lg:ml-6">
                   <button
                     onClick={toggleCartHandler}
                     className="group -m-2 flex items-center p-2 relative"
@@ -196,7 +196,7 @@ const NavBar = () => {
                       className="h-7 w-7 flex-shrink-0 text-gray-400 group-hover:text-indigo-600 "
                       aria-hidden="true"
                     />
-                    <span className=" absolute left-7 bottom-6 text-white h-5 w-5 rounded-full text-sm font-medium bg-red-600 text-center">
+                    <span className=" absolute left-7 bottom-6 text-white h-5 w-5 rounded-full text-sm font-medium bg-red-600 flex items-center justify-center">
                       {totalCartQuantity}
                     </span>
                   </button>

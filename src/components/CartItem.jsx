@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { formatCurrency } from "../utils/Helper";
-import { deleteItem, getCart } from "../store/CartSlice";
+import { deleteItem } from "../store/CartSlice";
 
 const CartItem = ({ id, thumbnail, title, quantity, unitPrice, brand }) => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const CartItem = ({ id, thumbnail, title, quantity, unitPrice, brand }) => {
             </h3>
             <p className="ml-4">{formatCurrency(unitPrice)}</p>
           </div>
-          <p class="mt-1 text-sm text-gray-500">{brand}</p>
+          <p className="mt-1 text-sm text-gray-500">{brand}</p>
         </div>
         <div className="flex flex-1 items-end justify-between text-sm">
           <p className="text-gray-500">Qty {quantity}</p>

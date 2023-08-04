@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import {
   addItem,
@@ -6,6 +7,7 @@ import {
   getCurrentQuantityById,
   increaseItemQuantity,
 } from "../store/CartSlice";
+import { formatCurrency } from "../utils/Helper";
 
 const ProductItem = ({
   id,
@@ -48,7 +50,7 @@ const ProductItem = ({
     <div className=" shadow-lg p-2 rounded-lg">
       <div></div>
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 lg:aspect-none hover:opacity-75 h-80">
-        <Link to="">
+        <Link to={`/products/${id}`}>
           <img
             src={thumbnail}
             alt="Not found!"
@@ -60,14 +62,16 @@ const ProductItem = ({
         <div>
           <h3 className="text-sm text-gray-700">{title}</h3>
         </div>
-        <p className="text-sm font-medium text-gray-900">{price} $</p>
+        <p className="text-sm font-medium text-gray-900">
+          {formatCurrency(price)} $
+        </p>
       </div>
       {quantity === 0 ? (
         <button
           onClick={addToCartHandler}
           className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-full block mx-auto my-2 py-2 text-white"
         >
-          Add to cart
+          <AddShoppingCartOutlinedIcon fontSize="medium" /> Add to cart
         </button>
       ) : (
         <div className="flex items-center justify-center my-2">
