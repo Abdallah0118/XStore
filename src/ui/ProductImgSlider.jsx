@@ -4,18 +4,18 @@ import "./ProductImgSlider.css";
 
 const ProductImgSlider = ({ images }) => {
   const [selected, setSelected] = useState(images[0]);
-  const [allImg, setallImg] = useState(images);
+
   return (
     <div
       id="ProductImgSlider"
-      className="flex items-center justify-center mx-auto mb-10 lg:mb-0"
+      className="flex items-center justify-evenly mx-auto mb-10 lg:mb-0"
     >
-      <div className="imagesHolder">
-        {allImg.map((img) => {
+      <div className="imagesHolder mx-3">
+        {images.map((img) => {
           return (
             <img
               key={images[images.indexOf(img)]}
-              className=""
+              className="rounded-lg shadow-none shadow-gray-500 hover:scale-150 hover:shadow-md transition-all ease-in-out "
               src={img}
               alt=""
               onClick={() => {
@@ -25,7 +25,11 @@ const ProductImgSlider = ({ images }) => {
           );
         })}
       </div>
-      <img className="mainImage" src={selected} alt="" />
+      <div className="mx-3">
+      <img className="mainImage rounded-lg hover:scale-150 transition-all ease-in-out" 
+      src={selected} 
+      alt="" />
+      </div>
     </div>
   );
 };

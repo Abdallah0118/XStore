@@ -44,14 +44,20 @@ const ProductPage = () => {
 
   return (
     <div className="flex lg:flex-row flex-col mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 bg-white my-10 rounded-lg">
-      <div >
+      <div>
         <ProductImgSlider {...product} />
       </div>
-      <div className="ml-5">
-        <h1 className=" font-bold text-4xl">{title}</h1>
-        <h2 className=" font-medium text-md my-2">{brand}</h2>
-        <p className=" font-normal text-md my-2 text-gray-700">{description}</p>
-        <p className=" font-bold text-md my-2">{formatCurrency(price)}</p>
+      <div className="items-center ml-5 border-solid border-gray-200 border-2 p-3 rounded-md shadow-sm shadow-gray-200">
+        <div className="shadow-sm shadow-gray-300 mx-5 my-3 p-3">
+        <h1 className="font-bold text-4xl">{title}</h1>
+        <h2 className="font-medium text-md my-2">{brand}</h2>
+        <p className="font-normal text-md my-2 text-gray-700">{description}</p>
+        <div className="text-center my-4">
+        <span className="font-bold text-md border-solid border-gray-200 border-2 shadow-md shadow-gray-300 p-3">{formatCurrency(price)}</span>
+        </div>
+        </div>
+
+        <div className="mt-4">
         {quantity === 0 ? (
           <button
             onClick={addToCartHandler}
@@ -60,22 +66,24 @@ const ProductPage = () => {
             Add to cart
           </button>
         ) : (
-          <div className="flex items-center justify-center my-2">
+          <div className="flex items-center justify-evenly my-2">
             <button
               onClick={increaseHandler}
-              className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-5/12  py-2 text-white"
+              className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-3/12 py-2 mx-2 text-white"
             >
               +
             </button>
-            <span className=" w-2/12 text-center">{quantity}</span>
+            <span className="py-2 mx-5 bg-indigo-700 hover:bg-indigo-600 rounded-md text-white font-bold w-2/12 text-center">{quantity}</span>
             <button
               onClick={decreaseHandler}
-              className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-5/12 py-2 text-white"
+              className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-3/12 py-2 mx-2 text-white"
             >
               -
             </button>
           </div>
         )}
+        </div>
+      
       </div>
     </div>
   );
