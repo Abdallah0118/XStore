@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import CartItem from "./CartItem";
 import { getTotalCartPrice } from "../store/CartSlice";
 import { formatCurrency } from "../utils/Helper";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const show = useSelector((state) => state.toggleCart.cartIsVisible);
@@ -87,12 +88,13 @@ export default function Cart() {
                         Shipping and taxes calculated at checkout.
                       </p>
                       <div className="mt-6">
-                        <a
-                          href="/"
+                        <Link
+                          onClick={close}
+                          to="/checkout"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
-                        </a>
+                        </Link>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500"></div>
                     </div>

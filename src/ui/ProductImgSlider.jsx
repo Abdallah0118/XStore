@@ -15,6 +15,7 @@ const ProductImgSlider = ({ images }) => {
           return (
             <img
               key={images[images.indexOf(img)]}
+              style={img === selected ? { border: "2px solid #3949ab" } : {}}
               className=""
               src={img}
               alt=""
