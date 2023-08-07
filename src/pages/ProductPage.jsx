@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductImgSlider from "../ui/ProductImgSlider";
 import { useLoaderData } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addItem,
-  decreaseItemQuantity,
-  getCurrentQuantityById,
-  increaseItemQuantity,
-} from "../store/CartSlice";
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/CartSlice";
 import { formatCurrency } from "../utils/Helper";
+import { feedBackVisibil } from "../store/CartFeedbackSlice";
 
 const ProductPage = () => {
   const product = useLoaderData();
@@ -16,7 +12,6 @@ const ProductPage = () => {
   const { id, price, title, description, brand, category, thumbnail, images } =
     product;
 
-  const quantity = useSelector(getCurrentQuantityById(id));
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
@@ -29,22 +24,21 @@ const ProductPage = () => {
       category,
       thumbnail,
       images,
-      quantity: 1,
+      quantity: inputValue,
       totalPrice: price * 1,
     };
     dispatch(addItem(newItem));
+    dispatch(feedBackVisibil());
+    setTimeout(() => {
+      dispatch(feedBackVisibil());
+    }, 2000);
   };
 
-  const increaseHandler = () => {
-    dispatch(increaseItemQuantity(id));
-  };
-  const decreaseHandler = () => {
-    dispatch(decreaseItemQuantity(id));
-  };
+  const [inputValue, setInputValue] = useState(1);
 
   return (
     <div className="flex lg:flex-row flex-col mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 bg-white my-10 rounded-lg">
-      <div >
+      <div>
         <ProductImgSlider {...product} />
       </div>
       <div className="ml-5">
@@ -52,30 +46,22 @@ const ProductPage = () => {
         <h2 className=" font-medium text-md my-2">{brand}</h2>
         <p className=" font-normal text-md my-2 text-gray-700">{description}</p>
         <p className=" font-bold text-md my-2">{formatCurrency(price)}</p>
-        {quantity === 0 ? (
+        <div className="flex items-center justify-between ">
+          <input
+            type="number"
+            max={10}
+            min={1}
+            value={inputValue}
+            className="border-gray-200 border-2 h-10 rounded-md mr-4 text-center"
+            onChange={(event) => setInputValue(event.target.value)}
+          />
           <button
             onClick={addToCartHandler}
             className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-full block mx-auto my-2 py-2 text-white"
           >
             Add to cart
           </button>
-        ) : (
-          <div className="flex items-center justify-center my-2">
-            <button
-              onClick={increaseHandler}
-              className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-5/12  py-2 text-white"
-            >
-              +
-            </button>
-            <span className=" w-2/12 text-center">{quantity}</span>
-            <button
-              onClick={decreaseHandler}
-              className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-5/12 py-2 text-white"
-            >
-              -
-            </button>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

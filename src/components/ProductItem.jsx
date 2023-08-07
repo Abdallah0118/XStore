@@ -1,13 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  addItem,
-  decreaseItemQuantity,
-  getCurrentQuantityById,
-  increaseItemQuantity,
-} from "../store/CartSlice";
+import { addItem } from "../store/CartSlice";
 import { formatCurrency } from "../utils/Helper";
+import { useState } from "react";
+import { feedBackVisibil } from "../store/CartFeedbackSlice";
 
 const ProductItem = ({
   id,
@@ -20,7 +16,6 @@ const ProductItem = ({
   images,
 }) => {
   // cart quantity
-  const quantity = useSelector(getCurrentQuantityById(id));
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
@@ -33,18 +28,17 @@ const ProductItem = ({
       category,
       thumbnail,
       images,
-      quantity: 1,
+      quantity: inputValue,
       totalPrice: price * 1,
     };
     dispatch(addItem(newItem));
+    dispatch(feedBackVisibil());
+    setTimeout(() => {
+      dispatch(feedBackVisibil());
+    }, 2000);
   };
 
-  const increaseHandler = () => {
-    dispatch(increaseItemQuantity(id));
-  };
-  const decreaseHandler = () => {
-    dispatch(decreaseItemQuantity(id));
-  };
+  const [inputValue, setInputValue] = useState(1);
 
   return (
     <div className=" shadow-lg p-2 rounded-lg">
@@ -66,30 +60,22 @@ const ProductItem = ({
           {formatCurrency(price)} $
         </p>
       </div>
-      {quantity === 0 ? (
+      <div className="flex items-center justify-between ">
+        <input
+          type="number"
+          max={10}
+          min={1}
+          value={inputValue}
+          className="border-gray-200 border-2 h-10 rounded-md mr-4 text-center w-1/3"
+          onChange={(event) => setInputValue(event.target.value)}
+        />
         <button
           onClick={addToCartHandler}
           className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-full block mx-auto my-2 py-2 text-white"
         >
-          <AddShoppingCartOutlinedIcon fontSize="medium" /> Add to cart
+          Add to cart
         </button>
-      ) : (
-        <div className="flex items-center justify-center my-2">
-          <button
-            onClick={increaseHandler}
-            className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-5/12  py-2 text-white"
-          >
-            +
-          </button>
-          <span className=" w-2/12 text-center">{quantity}</span>
-          <button
-            onClick={decreaseHandler}
-            className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-5/12 py-2 text-white"
-          >
-            -
-          </button>
-        </div>
-      )}
+      </div>
     </div>
   );
 };

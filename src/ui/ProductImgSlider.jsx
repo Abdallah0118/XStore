@@ -4,7 +4,7 @@ import "./ProductImgSlider.css";
 
 const ProductImgSlider = ({ images }) => {
   const [selected, setSelected] = useState(images[0]);
-  const [allImg, setallImg] = useState(images);
+  const allImg = images;
   return (
     <div
       id="ProductImgSlider"

@@ -185,7 +185,6 @@ const NavBar = () => {
                     <span className="ml-3 block text-sm font-medium">EGP</span>
                   </Link>
                 </div>
-
                 {/* Cart */}
                 <div className=" relative flow-root lg:ml-6">
                   <button
@@ -197,7 +196,7 @@ const NavBar = () => {
                       aria-hidden="true"
                     />
                     <span className=" absolute left-7 bottom-6 text-white h-5 w-5 rounded-full text-sm font-medium bg-red-600 flex items-center justify-center">
-                      {totalCartQuantity}
+                      {parseInt(totalCartQuantity, 10)}
                     </span>
                   </button>
                 </div>

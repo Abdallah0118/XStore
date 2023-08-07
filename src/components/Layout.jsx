@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import NavBar from "./NavBar";
 import Cart from "./Cart";
 import { CircularProgress } from "@mui/material";
+import CartFeedback from "../ui/CartFeedback";
 
 const Layout = () => {
   const navigation = useNavigation();
@@ -11,6 +12,7 @@ const Layout = () => {
   return (
     <div id="layout">
       <NavBar />
+      <CartFeedback />
       <Cart />
       {navigation.state === "loading" && (
         <div className="flex justify-center items-center my-6">
