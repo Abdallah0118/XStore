@@ -4,6 +4,7 @@ import { addItem } from "../store/CartSlice";
 import { formatCurrency } from "../utils/Helper";
 import { useState } from "react";
 import { feedBackVisibil } from "../store/CartFeedbackSlice";
+import { Button } from "@material-tailwind/react";
 
 const ProductItem = ({
   id,
@@ -57,7 +58,7 @@ const ProductItem = ({
           <h3 className="text-sm text-gray-700">{title}</h3>
         </div>
         <p className="text-sm font-medium text-gray-900">
-          {formatCurrency(price)} $
+          {formatCurrency(price)}
         </p>
       </div>
       <div className="flex items-center justify-between ">
@@ -69,12 +70,17 @@ const ProductItem = ({
           className="border-gray-200 border-2 h-10 rounded-md mr-4 text-center w-1/3"
           onChange={(event) => setInputValue(event.target.value)}
         />
-        <button
+        <Button
           onClick={addToCartHandler}
-          className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-full block mx-auto my-2 py-2 text-white"
+          className=" font-medium w-full"
+          style={{
+            textTransform: "none",
+            fontFamily: "inherit",
+            fontSize: "inherit",
+          }}
         >
           Add to cart
-        </button>
+        </Button>
       </div>
     </div>
   );

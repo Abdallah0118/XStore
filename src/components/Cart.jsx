@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import CartItem from "./CartItem";
 import { getTotalCartPrice } from "../store/CartSlice";
 import { formatCurrency } from "../utils/Helper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
 
 export default function Cart() {
   const show = useSelector((state) => state.toggleCart.cartIsVisible);
@@ -17,7 +18,10 @@ export default function Cart() {
   const dispatch = useDispatch();
   const close = () => {
     dispatch(toggleCartActions.close());
+    navigate("/checkout");
   };
+
+  const navigate = useNavigate();
 
   return (
     <Transition.Root show={show} as={Fragment}>
@@ -88,13 +92,17 @@ export default function Cart() {
                         Shipping and taxes calculated at checkout.
                       </p>
                       <div className="mt-6">
-                        <Link
+                        <Button
                           onClick={close}
-                          to="/checkout"
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className=" font-medium w-full"
+                          style={{
+                            textTransform: "none",
+                            fontFamily: "inherit",
+                            fontSize: "inherit",
+                          }}
                         >
                           Checkout
-                        </Link>
+                        </Button>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500"></div>
                     </div>

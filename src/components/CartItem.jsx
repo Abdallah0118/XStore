@@ -1,12 +1,17 @@
 import { useDispatch } from "react-redux";
 import { formatCurrency } from "../utils/Helper";
 import { deleteItem } from "../store/CartSlice";
+import { Link } from "react-router-dom";
+import { toggleCartActions } from "../store/ToggleCartSlice";
 
 const CartItem = ({ id, thumbnail, title, quantity, unitPrice, brand }) => {
   const dispatch = useDispatch();
 
   const removeHandler = () => {
     dispatch(deleteItem(id));
+  };
+  const close = () => {
+    dispatch(toggleCartActions.close());
   };
 
   return (
@@ -23,9 +28,9 @@ const CartItem = ({ id, thumbnail, title, quantity, unitPrice, brand }) => {
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <h3>
-              <a href="/">
+              <Link to={"/products/" + id} onClick={close}>
                 <h5 className=" text-sm">{title}</h5>
-              </a>
+              </Link>
             </h3>
             <p className="ml-4">{formatCurrency(unitPrice)}</p>
           </div>

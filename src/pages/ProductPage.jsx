@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../store/CartSlice";
 import { formatCurrency } from "../utils/Helper";
 import { feedBackVisibil } from "../store/CartFeedbackSlice";
+import { Button } from "@material-tailwind/react";
 
 const ProductPage = () => {
   const product = useLoaderData();
@@ -55,12 +56,17 @@ const ProductPage = () => {
             className="border-gray-200 border-2 h-10 rounded-md mr-4 text-center"
             onChange={(event) => setInputValue(event.target.value)}
           />
-          <button
+          <Button
             onClick={addToCartHandler}
-            className=" bg-indigo-600 hover:bg-indigo-700 rounded-md w-full block mx-auto my-2 py-2 text-white"
+            className=" font-medium w-full"
+            style={{
+              textTransform: "none",
+              fontFamily: "inherit",
+              fontSize: "inherit",
+            }}
           >
             Add to cart
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -5,6 +5,8 @@ import Home, { loader as fetchedProducts } from "./pages/Home";
 import About from "./pages/About";
 import ProductPage, { loader as productById } from "./pages/ProductPage";
 import CartCheckout from "./pages/CartCheckout";
+import Signin from "./pages/Signin";
+import SignUp from "./pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/signin", element: <Signin /> },
+  { path: "/signup", element: <SignUp /> },
 ]);
 
 const App = () => {
