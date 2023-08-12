@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import CartItem from "./CartItem";
 import { getTotalCartPrice } from "../store/CartSlice";
 import { formatCurrency } from "../utils/Helper";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 
 export default function Cart() {
@@ -18,9 +18,11 @@ export default function Cart() {
   const dispatch = useDispatch();
   const close = () => {
     dispatch(toggleCartActions.close());
-    navigate("/checkout");
   };
-
+  const onCheckout = () => {
+    navigate("/checkout");
+    close();
+  };
   const navigate = useNavigate();
 
   return (
@@ -93,7 +95,7 @@ export default function Cart() {
                       </p>
                       <div className="mt-6">
                         <Button
-                          onClick={close}
+                          onClick={onCheckout}
                           className=" font-medium w-full"
                           style={{
                             textTransform: "none",
