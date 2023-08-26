@@ -85,7 +85,7 @@ const NavBar = () => {
                 <div className=" border-t border-gray-200 px-4 py-6 underline">
                   <div className="flow-root">
                     <Link
-                      to="#"
+                      to="/signin"
                       className="m-2 block p-2 font-medium text-gray-900 hover:text-indigo-600"
                     >
                       Sign in
@@ -93,7 +93,7 @@ const NavBar = () => {
                   </div>
                   <div className="flow-root">
                     <Link
-                      to="#"
+                      to="/signup"
                       className="m-2 block p-2 font-medium text-gray-900 hover:text-indigo-600"
                     >
                       Create account

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
+import HeroSectionCarousel from "../components/HeroSectionCarousel";
 
 const About = () => {
   return (
@@ -12,6 +13,7 @@ const About = () => {
         >
           Button
         </Button>
+        <HeroSectionCarousel />
       </div>
     </div>
   );
